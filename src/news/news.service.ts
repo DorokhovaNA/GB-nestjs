@@ -19,7 +19,9 @@ export class NewsService {
           id: 1,
           author: 'DorokhovaNA',
           text: 'text',
-          date: '2022-08-11T14:17:39.867Z'
+          date: '2022-08-11T14:17:39.867Z',
+          isCanReply: true,
+          reply: []
         }
       ],
       date: '2022-08-11T14:15:39.867Z',
@@ -49,14 +51,22 @@ export class NewsService {
     return this.news;
   }
 
-  createComment(createCommentDto: CreateCommentDto) {
+  createComment(commentId: number, createCommentDto: CreateCommentDto) {
     const newsId = createCommentDto.id;
     const news = this.findOne(newsId);
+
+    if (commentId) {
+      this.replyComment(newsId, commentId, createCommentDto);
+      return;
+    }
+
     const comment: Comment = {
+      ...createCommentDto,
       id: news.comments.length + 1,
       author: 'DorokhovaNA',
-      text: createCommentDto.text,
-      date: new Date().toUTCString()
+      date: new Date().toUTCString(),
+      isCanReply: true,
+      reply: []
     }
     this.news[newsId - 1].comments.push(comment);
   }
@@ -89,6 +99,25 @@ export class NewsService {
       date: new Date().toUTCString()
     } 
     this.news[newsId - 1].comments[commentId - 1] = updateComment;
+  }
+
+  replyComment(newsId: number, commentId: number, createCommentDto: CreateCommentDto) {
+    const news = this.findOne(newsId);
+    const comment = news.comments.find((comment) => comment.id === commentId);
+
+    if (!comment?.isCanReply) {
+      throw new NotFoundException();
+    }
+
+    const reply: Comment = {
+      ...createCommentDto,
+      id: comment?.reply.length + 1,
+      author: 'DorokhovaNA',
+      date: new Date().toUTCString(),
+      isCanReply: false
+    }
+    
+    this.news[newsId - 1].comments[commentId - 1].reply.push(reply);
   }
 
   remove(id: number) {

@@ -1,4 +1,11 @@
+import { IsNumber, IsPositive, IsString, Length } from 'class-validator';
+
 export class CreateCommentDto {
-	id: number;
-	text: string;
+  @IsNumber()
+  @IsPositive()
+  id: number;
+
+  @IsString()
+  @Length(5, 50)
+  text: string;
 }

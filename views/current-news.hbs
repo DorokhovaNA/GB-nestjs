@@ -1,0 +1,36 @@
+<div class="row">
+	<div>
+		<div class="card">
+			<img
+				src='http://localhost:3000{{this.thumbnail}}'
+				class="card-img-top"
+				style="height: 200px; object-fit: cover;"
+				alt=''
+			>
+			<div class="card-body">
+				<h5 class="card-title">{{this.title}}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">Автор: {{this.author}}</h6>
+				<h6 class="card-subtitle mb-2 text-muted">
+					Дата создания:{{this.date}}
+				</h6>
+				<p class="card-text">{{this.text}}</p>
+			</div>
+			<div class="d-flex justify-content-between">
+				{{#if this.comments.length}}
+					<a
+						class="text-decoration-none m-sm-4" 
+						href='http://localhost:3000/news/{{this.id}}/comments'
+					>Комментарии</a>
+				{{else}}
+					<p class="m-sm-4">Комментарии отсутствуют</p>
+				{{/if}}
+				<a
+					class="text-decoration-none m-sm-4" 
+					href='http://localhost:3000/news/{{this.id}}/create'
+				>Добавить комментарий</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+

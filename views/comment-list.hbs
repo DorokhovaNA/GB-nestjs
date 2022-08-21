@@ -1,0 +1,13 @@
+{{#each comments}}
+	<div class="col-lg-6">
+		<div class="list-group">
+			<div class="card-body">
+				<h6 class="card-subtitle mb-2 text-muted">Автор: {{this.author}}</h6>
+				<h6 class="card-subtitle mb-2 text-muted">
+					Дата создания:{{this.date}}
+				</h6>
+				<p class="card-text">{{this.text}}</p>
+			</div>
+		</div>
+	</div>
+{{/each}}

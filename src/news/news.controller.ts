@@ -1,23 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, SetMetadata } from '@nestjs/common';
 import { NewsService } from './news.service';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Public } from 'src/decorators/public.decorator';
+import { Roles } from 'src/decorators/roles.decorator';
 
 @Controller('news')
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
   @Post()
+  @Roles('admin')
   create(@Body() createNewsDto: CreateNewsDto) {
     return this.newsService.create(createNewsDto);
   }
 
   @Post('comment')
   @Public()
-  createComment(@Body() createCommentDto: CreateCommentDto) {
-    return this.newsService.createComment(createCommentDto);
+  createComment(@Query('commentId') commentId: string, @Body() createCommentDto: CreateCommentDto) {
+    return this.newsService.createComment(+commentId, createCommentDto);
   }
 
   @Get()

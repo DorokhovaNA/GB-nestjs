@@ -3,4 +3,6 @@ export class Comment {
 	author: string;
 	text: string;
 	date: string;
+	isCanReply: boolean;
+	reply?: Comment[];
 }

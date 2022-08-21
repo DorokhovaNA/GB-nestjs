@@ -8,41 +8,15 @@ import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Injectable()
 export class NewsService {
-  private news: News[] = [
-    {
-      id: 1,
-      author: 'DorokhovaNA',
-      title: 'title',
-      text: 'text',
-      comments: [
-        {
-          id: 1,
-          author: 'DorokhovaNA',
-          text: 'text',
-          date: '2022-08-11T14:17:39.867Z',
-          isCanReply: true,
-          reply: []
-        }
-      ],
-      date: '2022-08-11T14:15:39.867Z',
-      
-    },
-    {
-      id: 2,
-      author: 'DorokhovaNA',
-      title: 'title2',
-      text: 'text2',
-      date: '2022-08-11T14:15:39.867Z',
-      comments: []
-    }
-  ]
+  private news: News[] = []
   create(createNewsDto: CreateNewsDto) {
     const news: News = {
       ...createNewsDto,
       id: this.news.length + 1,
       author: 'DorokhovaNA',
       date: new Date().toUTCString(),
-      comments: []
+      comments: [],
+      thumbnail: createNewsDto.thumbnail,
     }
     this.news.push(news);
   }

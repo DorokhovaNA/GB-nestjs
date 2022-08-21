@@ -10,9 +10,10 @@ import { NewsModule } from './news/news.module';
   controllers: [AppController],
   providers: [
     AppService,
-  {
-    provide: APP_GUARD,
-    useClass: AccessGuard,
-  }],
+    {
+      provide: APP_GUARD,
+      useClass: AccessGuard,
+    },
+  ],
 })
 export class AppModule {}

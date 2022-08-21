@@ -6,4 +6,5 @@ export class News {
 	text: string;
 	comments: Comment[];
 	date: string;
+	thumbnail: string[];
 }
